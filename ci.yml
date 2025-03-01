@@ -28,7 +28,7 @@ steps:
     displayName: 'Build Docker image'
 
   - script: |
-      echo ${{ DOCKER_PASSWORD }} | docker login -u ${{ DOCKER_USERNAME }} --password-stdin
+      echo $(DOCKER_PASSWORD) | docker login -u $(DOCKER_USERNAME) --password-stdin
       docker push tiawold/flask_app:1.0
     displayName: 'Push Docker image to Docker Hub'
     condition: succeeded()
