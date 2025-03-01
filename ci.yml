@@ -17,9 +17,15 @@ steps:
       pip install -r requirements.txt
     displayName: 'Install dependencies'
 
+  # # using setup.py to build the package
+  # - script: |
+  #     python setup.py sdist bdist_wheel
+  #   displayName: 'Build package'
+
+  # uding docker to build the image
   - script: |
-      python setup.py sdist bdist_wheel
-    displayName: 'Build package'
+      docker build -t tiawold/flask_app:1.0 .
+    displayName: 'Build Docker image'
 
   - script: pytest tests/ --junitxml=test-results.xml --cov=tests/
     displayName: 'Run tests'
