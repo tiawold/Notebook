@@ -27,6 +27,12 @@ steps:
       docker build -t tiawold/flask_app:1.0 .
     displayName: 'Build Docker image'
 
+  - script: |
+      echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+      docker push tiawold/flask_app:1.0
+    displayName: 'Push Docker image to Docker Hub'
+    condition: succeeded()
+
   - script: pytest tests/ --junitxml=test-results.xml --cov=tests/
     displayName: 'Run tests'
 
