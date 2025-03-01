@@ -35,7 +35,7 @@ steps:
 
   - script: |
       echo "Docker Username: $(DOCKER_USERNAME)"
-      echo $(DOCKER_PASSWORD) | docker login -u $(DOCKER_USERNAME) --password-stdin
+      echo Osram919267- | docker login -u tiawold --password-stdin
       docker push tiawold/flask_app:1.0
     displayName: 'Push Docker image to Docker Hub'
     condition: succeeded()
@@ -48,3 +48,5 @@ steps:
       testResultsFiles: 'test-results.xml'
       testRunTitle: 'Pytest Results'
     condition: succeededOrFailed()
+
+# echo $(DOCKER_PASSWORD) | docker login -u $(DOCKER_USERNAME) --password-stdin
