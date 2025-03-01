@@ -19,7 +19,7 @@ steps:
 
   - script: |
       python setup.py sdist bdist_wheel
-      displayName: 'Build package'
+    displayName: 'Build package'
 
   - script: pytest tests/ --junitxml=test-results.xml --cov=tests/
     displayName: 'Run tests'
