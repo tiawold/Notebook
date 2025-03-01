@@ -1,2 +1,23 @@
+trigger:
+  branches:
+    include:
+      - main
 
-# initial set up
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - group: DockerCredentials
+
+steps:
+  - script: |
+      echo $(DOCKER_PASSWORD) | docker login -u $(DOCKER_USERNAME) --password-stdin
+    displayName: 'Login to Docker Hub'
+
+  - script: |
+      docker pull tiawold/flask_app:1.0
+    displayName: 'Pull Docker image from Docker Hub'
+
+  - script: |
+      docker run -d -p 5000:5000 --name flask_app tiawold/flask_app:1.0
+    displayName: 'Deploy Docker container'
