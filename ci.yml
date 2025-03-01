@@ -7,17 +7,9 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  - name: DOCKER_USERNAME
-    value: $(DOCKER_USERNAME)
-  - name: DOCKER_PASSWORD
-    value: $(DOCKER_PASSWORD)
-    
+  - group: DockerCredentials
+  
 steps:
-  # - task: UsePythonVersion@0
-  #   inputs:
-  #     versionSpec: '3.9'
-  #     addToPath: true
-
   - script: |
       python -m pip install --upgrade pip
       pip install -r requirements.txt
@@ -35,7 +27,7 @@ steps:
 
   - script: |
       echo "Docker Username: $(DOCKER_USERNAME)"
-      echo Osram919267- | docker login -u tiawold --password-stdin
+      echo $(DOCKER_PASSWORD) | docker login -u $(DOCKER_USERNAME) --password-stdin
       docker push tiawold/flask_app:1.0
     displayName: 'Push Docker image to Docker Hub'
     condition: succeeded()
@@ -49,4 +41,3 @@ steps:
       testRunTitle: 'Pytest Results'
     condition: succeededOrFailed()
 
-# echo $(DOCKER_PASSWORD) | docker login -u $(DOCKER_USERNAME) --password-stdin
